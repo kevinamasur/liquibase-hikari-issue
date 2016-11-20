@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    username: ngc
+    password: ngc
+    url: jdbc:jtds:sqlserver://localhost:1433/smallBlock
+    driverClassName: net.sourceforge.jtds.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 5
+      pool-name: my-servicePool
+      idle-timeout: 10000
+      connection-test-query: SELECT 42
+      transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+liquibase:
+  url: ${spring.datasource.url}
+  user: ngc
+  password: ngc
+  change-log: classpath:liquibase-changeLog.xml
+  enabled: true
+
+logging:
+  level:
+    com.zaxxer: trace
+    liquibase: trace
