@@ -1,7 +1,7 @@
 spring:
   datasource:
-    username: ngc
-    password: ngc
+    username: springuser
+    password: springuser
     url: jdbc:jtds:sqlserver://localhost:1433/smallBlock
     driverClassName: net.sourceforge.jtds.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
@@ -14,10 +14,11 @@ spring:
       transaction-isolation: TRANSACTION_READ_UNCOMMITTED
 liquibase:
   url: ${spring.datasource.url}
-  user: ngc
-  password: ngc
+  user: liquibaseuser
+  password: liquibaseuser
   change-log: classpath:liquibase-changeLog.xml
   enabled: true
+  default-schema: dbo
 
 logging:
   level:

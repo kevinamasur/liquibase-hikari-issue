@@ -1,17 +1,8 @@
-## NGC GPS Service
+## Liquibase Issue
 
-> Provides endpoints for Sonic-U GPS Devices
+Running the following example will cause a HikariPool$PoolInitializationException when running against MS SQL Server.
 
-### Liquibase updates
-
-The provided ./liquibase-template.sh script can be used to create a new liquibase file
-
-./liquibase-template.sh GPS-45 Example_Liquibase_Desc
-
-The result of that will create an xml file in the src/main/resources/db folder that you can put your liquibase xml into
-
-Don't forget when creating views, or procs that access or modify data in dbo to update the GPS user permissions.
-
-Those permissions can be updated in src/main/resources/db/00000000_000000.Set_User_Permissions.xml
-
-NOTE: Liquibase does not currently offer an xml equivalent for granting database permissions.  You will have to use sql statements.
+The issue arises due to liquibase attempting to create it's own Hikari Datasource.  However it doesn't set the connectionTestQuery param for Hikari causing Hikari to fail:
+ `HikariPool-1 - Failed to execute isValid() for connection, configure connection test query. (null)`
+ 
+ If you don't set the liquibase.url property liquibase will use the datasource created by the spring.datasource properties.
